@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .car-info {
+            display: inline-block;
+            margin: 10px 0 10px 10px;
+        }
+   .time-info{
+            display: inline-block;
+            margin: 20px 0 20px 20px;
+   }
+</style>
+<body>
+    <div class="car-info" id="placeholder1"></div>
+    <div class="time-info" id="placeholder2"></div>
+    <script>
+
+//Задание1
+
+function Car(image,manufacturer, model, year, averageSpeed,VIN) {
+    this.image = image;
+    this.manufacturer = manufacturer;
+    this.model = model;
+    this.year = year;
+    this.averageSpeed = averageSpeed;
+    this.VIN = VIN;
+
+    this.showStats = function (element) {
+        element.insertAdjacentHTML("beforeend",`<img src="images/${this.image}" /><br />`);
+        element.insertAdjacentHTML("beforeend",`Производитель: ${this.manufacturer}<br />`);
+        element.insertAdjacentHTML("beforeend",`Модель: ${this.model}<br />`);
+        element.insertAdjacentHTML("beforeend",`Год выпуска: ${this.year}<br />`);
+        element.insertAdjacentHTML("beforeend",`Средняя скорость: ${this.averageSpeed} км/ч<br />`);
+        element.insertAdjacentHTML("beforeend", `VIN: ${this.VIN}<br />`);
+    };
+
+    this.calculateTime = function (distance) {
+        let hours = distance / this.averageSpeed;
+        let breaks = Math.floor(hours / 4);
+
+        let totalTime = hours + breaks;
+
+        return totalTime;
+    };
+}
+let placeholder1 = document.querySelector("#placeholder1");
+let car1 = new Car("audi-a6-250.jpg","Audi", "A6", 2011, 100,"ABCD1234567890XYZ");
+car1.showStats(placeholder1);
+
+let distanceToTravel = 400; 
+let totalTime = car1.calculateTime(distanceToTravel);
+
+document.write(`Для расстояния ${distanceToTravel} км нужно ${totalTime.toFixed(2)} часов.<br />`);
+      
+        
+//Задание2 
+function Fraction(numerator, denominator) {
+    this.numerator = numerator;
+    this.denominator = denominator;
+
+
+    
+   
+    this.sum = function (otherFraction) {
+        let resultNumerator = this.numerator * otherFraction.denominator + otherFraction.numerator * this.denominator;
+        let resultDenominator = this.denominator * otherFraction.denominator;
+        return new Fraction(resultNumerator, resultDenominator);
+    };
+
+   
+    this.subtract = function (otherFraction) {
+        let resultNumerator = this.numerator * otherFraction.denominator - otherFraction.numerator * this.denominator;
+        let resultDenominator = this.denominator * otherFraction.denominator;
+        return new Fraction(resultNumerator, resultDenominator);
+    };
+
+    
+    this.multiply = function (otherFraction) {
+        let resultNumerator = this.numerator * otherFraction.numerator;
+        let resultDenominator = this.denominator * otherFraction.denominator;
+        return new Fraction(resultNumerator, resultDenominator);
+    };
+
+    
+    this.divide = function (otherFraction) {
+        let resultNumerator = this.numerator * otherFraction.denominator;
+        let resultDenominator = this.denominator * otherFraction.numerator;
+        return new Fraction(resultNumerator, resultDenominator);
+    };
+
+    
+    this.reduce = function () {
+        let HOD = function(a, b) {
+        if (b == 0) {
+            return a;
+        } else {
+          
+            return HOD(b, a % b);
+        }
+    };
+        let commonDivisor = HOD(this.numerator, this.denominator);
+        return new Fraction(this.numerator / commonDivisor, this.denominator / commonDivisor);
+    };
+}
+
+
+let fraction1 = new Fraction(1, 2);
+let fraction2 = new Fraction(3, 4);
+
+let suma = fraction1.sum(fraction2);
+document.write("Сумма=", suma.numerator + "/" + suma.denominator);
+
+let subtract = fraction1.subtract(fraction2);
+document.write("Разность=", subtract.numerator + "/" + subtract.denominator);
+
+let multiply = fraction1.multiply(fraction2);
+document.write("Умножение=", multiply.numerator + "/" + multiply.denominator);
+
+let divide = fraction1.divide(fraction2);
+document.write("Деление=", divide.numerator + "/" + divide.denominator);
+
+let reduce = fraction1.reduce();
+document.write("Сокращенная дробь:", reduce.numerator + "/" + reduce.denominator);
+
+
+
+
+
+//Задание3 
+function Time(hours, minutes, seconds) {
+    this.hours = hours;
+    this.minutes = minutes;
+    this.seconds = seconds;
+
+   
+    this.showTime = function (element) {
+        element.insertAdjacentHTML("beforeend",`${this.hours}:${this.minutes}:${this.seconds}<br />`);
+    };
+
+   
+    this.addSeconds = function (secondsToAdd) {
+        this.seconds += secondsToAdd;
+
+       
+        if (this.seconds >= 60) {
+    this.minutes += Math.floor(this.seconds / 60);
+    this.seconds = this.seconds % 60;
+}
+if (this.minutes >= 60) {
+    this.hours += Math.floor(this.minutes / 60);
+    this.minutes = this.minutes % 60;
+}
+
+        
+if (this.hours >= 24) {
+    this.hours = this.hours % 24;
+}
+
+    };
+
+    this.addMinutes = function (minutesToAdd) {
+        this.minutes += minutesToAdd;
+
+        if (this.minutes >= 60) {
+    this.hours += Math.floor(this.minutes / 60);
+    this.minutes = this.minutes % 60;
+}
+             
+if (this.hours >= 24) {
+    this.hours = this.hours % 24;
+}
+    };
+
+   
+    this.addHours = function (hoursToAdd) {
+        this.hours += hoursToAdd;
+
+           
+if (this.hours >= 24) {
+    this.hours = this.hours % 24;
+}
+    };
+}
+let placeholder2 = document.querySelector("#placeholder2");
+
+let currentTime = new Time(20, 30, 45);
+currentTime.showTime(placeholder2);
+
+
+currentTime.addSeconds(30);
+currentTime.showTime(placeholder2);
+
+currentTime.addMinutes(15);
+currentTime.showTime(placeholder2);
+
+currentTime.addHours(5);
+currentTime.showTime(placeholder2);
+
+    </script>
+</body>
+</html>
+
+
+
