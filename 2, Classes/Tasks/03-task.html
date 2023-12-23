@@ -41,17 +41,17 @@
 
 
         class Car {
-            #image;
-            #manufacturer;
+            #image= "";// закрытое поле (закрытое - можно использовать только в классе)
+            #manufacturer= "";
             constructor(image, manufacturer) {
-                this.#image = image;
+                this.#image = image;// закрытое поле можно поменять в теле класса
                 this.#manufacturer = manufacturer;
             }
             // getter - синтаксис, связывающий свойство объекта с методом
             // при обращении obj.width будет вызвана функция get width()
             get image() {
                 console.log("get image()");
-                return this.#image;
+                return this.#image; // значение закрытого поля можно прочесть в поле класса
                 
             }
             get manufacturer() {

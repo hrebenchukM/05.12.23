@@ -23,6 +23,7 @@
     <div class="time-info" id="placeholder2"></div>
     <script>
 
+/*
 //Задание1
 
 function Car(image,manufacturer, model, year, averageSpeed,VIN) {
@@ -32,24 +33,44 @@ function Car(image,manufacturer, model, year, averageSpeed,VIN) {
     this.year = year;
     this.averageSpeed = averageSpeed;
     this.VIN = VIN;
+*/
+    
 
-    this.showStats = function (element) {
-        element.insertAdjacentHTML("beforeend",`<img src="images/${this.image}" /><br />`);
-        element.insertAdjacentHTML("beforeend",`Производитель: ${this.manufacturer}<br />`);
-        element.insertAdjacentHTML("beforeend",`Модель: ${this.model}<br />`);
-        element.insertAdjacentHTML("beforeend",`Год выпуска: ${this.year}<br />`);
-        element.insertAdjacentHTML("beforeend",`Средняя скорость: ${this.averageSpeed} км/ч<br />`);
-        element.insertAdjacentHTML("beforeend", `VIN: ${this.VIN}<br />`);
-    };
+class Car {
+            #image;
+            #manufacturer;
+            #model;
+            #year;
+            #averageSpeed;
+            #VIN;
 
-    this.calculateTime = function (distance) {
-        let hours = distance / this.averageSpeed;
-        let breaks = Math.floor(hours / 4);
+            constructor(image, manufacturer, model, year, averageSpeed, VIN) {
+                this.#image = image;
+                this.#manufacturer = manufacturer;
+                this.#model = model;
+                this.#year = year;
+                this.#averageSpeed = averageSpeed;
+                this.#VIN = VIN;
+            }
 
-        let totalTime = hours + breaks;
 
-        return totalTime;
-    };
+   // this.showStats = function (element) {
+    showStats(element) {
+                element.insertAdjacentHTML("beforeend", `<img src="images/${this.#image}" /><br />`);
+                element.insertAdjacentHTML("beforeend", `Производитель: ${this.#manufacturer}<br />`);
+                element.insertAdjacentHTML("beforeend", `Модель: ${this.#model}<br />`);
+                element.insertAdjacentHTML("beforeend", `Год выпуска: ${this.#year}<br />`);
+                element.insertAdjacentHTML("beforeend", `Средняя скорость: ${this.#averageSpeed} км/ч<br />`);
+                element.insertAdjacentHTML("beforeend", `VIN: ${this.#VIN}<br />`);
+            }
+
+    //this.calculateTime = function (distance) {
+        calculateTime(distance) {
+                let hours = distance / this.#averageSpeed;
+                let breaks = Math.floor(hours / 4);
+                let totalTime = hours + breaks;
+                return totalTime;
+            }
 }
 let placeholder1 = document.querySelector("#placeholder1");
 let car1 = new Car("audi-a6-250.jpg","Audi", "A6", 2011, 100,"ABCD1234567890XYZ");
@@ -60,57 +81,72 @@ let totalTime = car1.calculateTime(distanceToTravel);
 
 document.write(`Для расстояния ${distanceToTravel} км нужно ${totalTime.toFixed(2)} часов.<br />`);
       
-        
+    
+
+
+
+
 //Задание2 
-function Fraction(numerator, denominator) {
+/*function Fraction(numerator, denominator) {
     this.numerator = numerator;
     this.denominator = denominator;
+*/
+    class Fraction {
+            #numerator;
+            #denominator;
 
+            constructor(numerator, denominator) {
+                this.#numerator = numerator;
+                this.#denominator = denominator;
+            }
 
     
    
-    this.sum = function (otherFraction) {
-        let resultNumerator = this.numerator * otherFraction.denominator + otherFraction.numerator * this.denominator;
-        let resultDenominator = this.denominator * otherFraction.denominator;
-        return new Fraction(resultNumerator, resultDenominator);
-    };
-
+ //   this.sum = function (otherFraction) {
+    sum(otherFraction) {
+                let resultNumerator = this.#numerator * otherFraction.#denominator + otherFraction.#numerator * this.#denominator;
+                let resultDenominator = this.#denominator * otherFraction.#denominator;
+                return new Fraction(resultNumerator, resultDenominator);
+            }
    
-    this.subtract = function (otherFraction) {
-        let resultNumerator = this.numerator * otherFraction.denominator - otherFraction.numerator * this.denominator;
-        let resultDenominator = this.denominator * otherFraction.denominator;
-        return new Fraction(resultNumerator, resultDenominator);
-    };
+    //this.subtract = function (otherFraction) {
+        subtract(otherFraction) {
+                let resultNumerator = this.#numerator * otherFraction.#denominator - otherFraction.#numerator * this.#denominator;
+                let resultDenominator = this.#denominator * otherFraction.#denominator;
+                return new Fraction(resultNumerator, resultDenominator);
+            }
 
     
-    this.multiply = function (otherFraction) {
-        let resultNumerator = this.numerator * otherFraction.numerator;
-        let resultDenominator = this.denominator * otherFraction.denominator;
-        return new Fraction(resultNumerator, resultDenominator);
-    };
+  //  this.multiply = function (otherFraction) {
+        multiply(otherFraction) {
+                let resultNumerator = this.#numerator * otherFraction.#numerator;
+                let resultDenominator = this.#denominator * otherFraction.#denominator;
+                return new Fraction(resultNumerator, resultDenominator);
+            }
+
 
     
-    this.divide = function (otherFraction) {
-        let resultNumerator = this.numerator * otherFraction.denominator;
-        let resultDenominator = this.denominator * otherFraction.numerator;
-        return new Fraction(resultNumerator, resultDenominator);
-    };
+   // this.divide = function (otherFraction) {
+    divide(otherFraction) {
+                let resultNumerator = this.#numerator * otherFraction.#denominator;
+                let resultDenominator = this.#denominator * otherFraction.#numerator;
+                return new Fraction(resultNumerator, resultDenominator);
+            }
 
     
-    this.reduce = function () {
-        let HOD = function(a, b) {
-        if (b == 0) {
-            return a;
-        } else {
-          
-            return HOD(b, a % b);
+   // this.reduce = function () {
+    reduce() {
+                let HOD = function(a, b) {
+                    if (b == 0) {
+                        return a;
+                    } else {
+                        return HOD(b, a % b);
+                    }
+                };
+                let commonDivisor = HOD(this.#numerator, this.#denominator);
+                return new Fraction(this.#numerator / commonDivisor, this.#denominator / commonDivisor);
+            }
         }
-    };
-        let commonDivisor = HOD(this.numerator, this.denominator);
-        return new Fraction(this.numerator / commonDivisor, this.denominator / commonDivisor);
-    };
-}
-
 
 let fraction1 = new Fraction(1, 2);
 let fraction2 = new Fraction(3, 4);
@@ -134,61 +170,70 @@ document.write("Сокращенная дробь:", reduce.numerator + "/" + re
 
 
 
+
 //Задание3 
-function Time(hours, minutes, seconds) {
+/*function Time(hours, minutes, seconds) {
     this.hours = hours;
     this.minutes = minutes;
     this.seconds = seconds;
+  */ 
+    class Time
+{
+            #hours;
+            #minutes;
+            #seconds;
 
+            constructor(hours, minutes, seconds) {
+                this.#hours = hours;
+                this.#minutes = minutes;
+                this.#seconds = seconds;
+            }
    
-    this.showTime = function (element) {
-        element.insertAdjacentHTML("beforeend",`${this.hours}:${this.minutes}:${this.seconds}<br />`);
-    };
+    //this.showTime = function (element) {
+    showTime(element) {
+                element.insertAdjacentHTML("beforeend", `${this.#hours}:${this.#minutes}:${this.#seconds}<br />`);
+            }
 
+
+   // this.addSeconds = function (secondsToAdd) {
+        addSeconds(secondsToAdd) {
+                this.#seconds += secondsToAdd;
+                if (this.#seconds >= 60) {
+                    this.#minutes += Math.floor(this.#seconds / 60);
+                    this.#seconds = this.#seconds % 60;
+                }
+                if (this.#minutes >= 60) {
+                    this.#hours += Math.floor(this.#minutes / 60);
+                    this.#minutes = this.#minutes % 60;
+                }
+                if (this.#hours >= 24) {
+                    this.#hours = this.#hours % 24;
+                }
+            }
+
+ //   this.addMinutes = function (minutesToAdd) {
+        addMinutes(minutesToAdd) {
+                this.#minutes += minutesToAdd;
+                if (this.#minutes >= 60) {
+                    this.#hours += Math.floor(this.#minutes / 60);
+                    this.#minutes = this.#minutes % 60;
+                }
+                if (this.#hours >= 24) {
+                    this.#hours = this.#hours % 24;
+                }
+            }
    
-    this.addSeconds = function (secondsToAdd) {
-        this.seconds += secondsToAdd;
-
-       
-        if (this.seconds >= 60) {
-    this.minutes += Math.floor(this.seconds / 60);
-    this.seconds = this.seconds % 60;
-}
-if (this.minutes >= 60) {
-    this.hours += Math.floor(this.minutes / 60);
-    this.minutes = this.minutes % 60;
+   // this.addHours = function (hoursToAdd) {
+        addHours(hoursToAdd) {
+                this.#hours += hoursToAdd;
+                if (this.#hours >= 24) {
+                    this.#hours = this.#hours % 24;
+                }
+            }
 }
 
-        
-if (this.hours >= 24) {
-    this.hours = this.hours % 24;
-}
 
-    };
 
-    this.addMinutes = function (minutesToAdd) {
-        this.minutes += minutesToAdd;
-
-        if (this.minutes >= 60) {
-    this.hours += Math.floor(this.minutes / 60);
-    this.minutes = this.minutes % 60;
-}
-             
-if (this.hours >= 24) {
-    this.hours = this.hours % 24;
-}
-    };
-
-   
-    this.addHours = function (hoursToAdd) {
-        this.hours += hoursToAdd;
-
-           
-if (this.hours >= 24) {
-    this.hours = this.hours % 24;
-}
-    };
-}
 let placeholder2 = document.querySelector("#placeholder2");
 
 let currentTime = new Time(20, 30, 45);
